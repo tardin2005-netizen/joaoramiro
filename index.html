@@ -40,9 +40,9 @@
   ::selection{background:var(--accent-dim); color:var(--accent);}
   :focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
 
-  .bg-watermark{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;}
-  .bg-watermark img{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:640px; height:640px; opacity:.13; object-fit:contain; filter:grayscale(.3);}
-  @media (max-width:820px){ .bg-watermark img{width:420px; height:420px; left:50%;} }
+  .bg-watermark{position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden;}
+  .bg-watermark img{position:absolute; top:50%; left:72%; transform:translate(-50%,-50%); width:580px; height:580px; opacity:.11; object-fit:contain; filter:grayscale(.3);}
+  @media (max-width:820px){ .bg-watermark{display:none;} }
   footer{position:relative; z-index:1;}
 
   /* ── topnav ── */
@@ -330,10 +330,6 @@
 </head>
 <body>
 
-<div class="bg-watermark" aria-hidden="true">
-  <img src="assets/tardin-invest-icon.png" alt="">
-</div>
-
 <header class="topnav">
   <div class="topnav-inner">
     <div class="topnav-logo">JT.<span>ardin</span></div>
@@ -357,17 +353,14 @@
 <main>
 
   <section class="hero" id="inicio">
+    <div class="bg-watermark" aria-hidden="true">
+      <img src="assets/tardin-invest-icon.png" alt="">
+    </div>
     <div class="hero-photo-wrap">
       <img class="hero-photo" id="gaze-photo" src="assets/gaze-mc.png" alt="Foto de João Victor Tardin Ramiro" onerror="this.style.display='none'">
       <div class="hero-photo-fade"></div>
       <div class="hero-photo-fade-top"></div>
       <div class="hero-photo-fade-bottom"></div>
-      <!-- 3x3 invisible gaze trigger grid -->
-      <div class="gaze-grid" id="gaze-grid" aria-hidden="true">
-        <div data-g="tl"></div><div data-g="tc"></div><div data-g="tr"></div>
-        <div data-g="ml"></div><div data-g="mc"></div><div data-g="mr"></div>
-        <div data-g="bl"></div><div data-g="bc"></div><div data-g="br"></div>
-      </div>
     </div>
     <div class="hero-content">
       <div class="eyebrow" data-i18n="heroEyebrow">Bem-vindo ao meu portfólio</div>
@@ -375,10 +368,6 @@
       <p class="hero-sub" data-i18n="heroSub">
         <b>Marketing Technology</b> &amp; <b>Product Builder</b> · Generative AI &amp; LLMs · São Paulo, Brasil
       </p>
-      <div class="hero-availability">
-        <span class="hero-avail-dot"></span>
-        <span data-i18n="heroAvail">Aberto a novos projetos</span>
-      </div>
       <div class="hero-cta">
         <a href="#projetos" class="btn btn-primary" data-i18n="heroBtnProjects">Ver Projetos</a>
         <a href="#contato" class="btn btn-ghost" data-i18n="heroBtnContact">Entrar em Contato</a>
@@ -580,42 +569,33 @@
 </div>
 
 <script>
-  // Gaze-grid effect: swap photo as mouse moves over 3x3 zones
+  // Gaze effect: swap photo based on mouse position over photo wrap
   (function(){
     const photo = document.getElementById('gaze-photo');
-    const grid  = document.getElementById('gaze-grid');
-    if (!photo || !grid) return;
+    const wrap  = photo ? photo.closest('.hero-photo-wrap') : null;
+    if (!photo || !wrap) return;
 
-    const BASE = 'assets/gaze-';
-    const cache = {};
+    const BASE  = 'assets/gaze-';
     const names = ['tl','tc','tr','ml','mc','mr','bl','bc','br'];
-
-    // Preload all 9 images
-    names.forEach(n => {
-      const img = new Image();
-      img.src = BASE + n + '.png';
-      cache[n] = img;
-    });
+    const cache = {};
+    names.forEach(n => { const i = new Image(); i.src = BASE + n + '.png'; cache[n] = i; });
 
     let current = 'mc';
-    grid.querySelectorAll('[data-g]').forEach(zone => {
-      zone.addEventListener('mouseenter', () => {
-        const g = zone.dataset.g;
-        if (g !== current) {
-          photo.src = cache[g].src;
-          current = g;
-        }
-      });
-    });
-
-    // Reset to center when mouse leaves the photo wrap
-    const wrap = photo.closest('.hero-photo-wrap');
-    if (wrap) {
-      wrap.addEventListener('mouseleave', () => {
-        photo.src = cache['mc'].src;
-        current = 'mc';
-      });
+    function zone(rx, ry) {
+      const col = rx < 0.33 ? 'l' : rx < 0.67 ? 'c' : 'r';
+      const row = ry < 0.33 ? 't' : ry < 0.67 ? 'm' : 'b';
+      return row + col;
     }
+    wrap.addEventListener('mousemove', e => {
+      const r  = wrap.getBoundingClientRect();
+      const rx = (e.clientX - r.left)  / r.width;
+      const ry = (e.clientY - r.top)   / r.height;
+      const g  = zone(rx, ry);
+      if (g !== current) { photo.src = cache[g].src; current = g; }
+    });
+    wrap.addEventListener('mouseleave', () => {
+      photo.src = cache['mc'].src; current = 'mc';
+    });
   })();
 
   // name shown immediately, with a blinking cursor bar next to it
