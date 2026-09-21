@@ -187,6 +187,13 @@
     background:linear-gradient(to top, var(--bg) 0%, transparent 100%);
     pointer-events:none; z-index:1;
   }
+  /* gaze grid */
+  .gaze-grid{
+    position:absolute; inset:0; z-index:5;
+    display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,1fr);
+    pointer-events:all;
+  }
+  .gaze-grid div{ cursor:default; }
   .hero-photo-fade-top{
     position:absolute; top:0; left:0; right:0; height:100px;
     background:linear-gradient(to bottom, var(--bg) 0%, transparent 100%);
@@ -436,10 +443,16 @@
       </div>
     </div>
     <div class="hero-photo-wrap">
-      <img class="hero-photo" src="assets/FOTOOO.png" alt="Foto de João Victor Tardin Ramiro" onerror="this.style.display='none'">
+      <img class="hero-photo" id="gaze-photo" src="assets/gaze-mc.png" alt="Foto de João Victor Tardin Ramiro" onerror="this.style.display='none'">
       <div class="hero-photo-fade"></div>
       <div class="hero-photo-fade-top"></div>
       <div class="hero-photo-fade-bottom"></div>
+      <!-- 3x3 invisible gaze trigger grid -->
+      <div class="gaze-grid" id="gaze-grid" aria-hidden="true">
+        <div data-g="tl"></div><div data-g="tc"></div><div data-g="tr"></div>
+        <div data-g="ml"></div><div data-g="mc"></div><div data-g="mr"></div>
+        <div data-g="bl"></div><div data-g="bc"></div><div data-g="br"></div>
+      </div>
     </div>
   </section>
 
@@ -622,6 +635,44 @@
 </div>
 
 <script>
+  // Gaze-grid effect: swap photo as mouse moves over 3x3 zones
+  (function(){
+    const photo = document.getElementById('gaze-photo');
+    const grid  = document.getElementById('gaze-grid');
+    if (!photo || !grid) return;
+
+    const BASE = 'assets/gaze-';
+    const cache = {};
+    const names = ['tl','tc','tr','ml','mc','mr','bl','bc','br'];
+
+    // Preload all 9 images
+    names.forEach(n => {
+      const img = new Image();
+      img.src = BASE + n + '.png';
+      cache[n] = img;
+    });
+
+    let current = 'mc';
+    grid.querySelectorAll('[data-g]').forEach(zone => {
+      zone.addEventListener('mouseenter', () => {
+        const g = zone.dataset.g;
+        if (g !== current) {
+          photo.src = cache[g].src;
+          current = g;
+        }
+      });
+    });
+
+    // Reset to center when mouse leaves the photo wrap
+    const wrap = photo.closest('.hero-photo-wrap');
+    if (wrap) {
+      wrap.addEventListener('mouseleave', () => {
+        photo.src = cache['mc'].src;
+        current = 'mc';
+      });
+    }
+  })();
+
   // name shown immediately, with a blinking cursor bar next to it
   const typedNameEl = document.getElementById('typed-name');
   if(typedNameEl){
