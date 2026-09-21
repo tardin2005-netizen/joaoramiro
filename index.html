@@ -145,7 +145,7 @@
   .hero{
     min-height:88vh;
     display:grid;
-    grid-template-columns:1fr 46%;
+    grid-template-columns:46% 1fr;
     align-items:center;
     position:relative;
     overflow:hidden;
@@ -155,7 +155,7 @@
   }
   .hero-content{
     display:flex; flex-direction:column; justify-content:center;
-    padding:80px 6vw;
+    padding:80px 6vw 80px 4vw;
     z-index:2;
   }
   .hero h1{font-size:clamp(32px,4vw,58px); font-weight:800; line-height:1.05;}
@@ -178,8 +178,8 @@
     border:none !important;
   }
   .hero-photo-fade{
-    position:absolute; top:0; left:0; bottom:0; width:220px;
-    background:linear-gradient(to right, var(--bg) 0%, transparent 100%);
+    position:absolute; top:0; right:0; bottom:0; width:220px;
+    background:linear-gradient(to left, var(--bg) 0%, transparent 100%);
     pointer-events:none; z-index:1;
   }
   .hero-photo-fade-bottom{
@@ -427,6 +427,18 @@
 <main>
 
   <section class="hero" id="inicio">
+    <div class="hero-photo-wrap">
+      <img class="hero-photo" id="gaze-photo" src="assets/gaze-mc.png" alt="Foto de João Victor Tardin Ramiro" onerror="this.style.display='none'">
+      <div class="hero-photo-fade"></div>
+      <div class="hero-photo-fade-top"></div>
+      <div class="hero-photo-fade-bottom"></div>
+      <!-- 3x3 invisible gaze trigger grid -->
+      <div class="gaze-grid" id="gaze-grid" aria-hidden="true">
+        <div data-g="tl"></div><div data-g="tc"></div><div data-g="tr"></div>
+        <div data-g="ml"></div><div data-g="mc"></div><div data-g="mr"></div>
+        <div data-g="bl"></div><div data-g="bc"></div><div data-g="br"></div>
+      </div>
+    </div>
     <div class="hero-content">
       <div class="eyebrow" data-i18n="heroEyebrow">Bem-vindo ao meu portfólio</div>
       <h1><span class="accent sweep-text" id="typed-name" data-text="João Victor Tardin Ramiro"><span class="typed-text"></span><span class="typed-caret"></span></span></h1>
@@ -440,18 +452,6 @@
       <div class="hero-cta">
         <a href="#projetos" class="btn btn-primary" data-i18n="heroBtnProjects">Ver Projetos</a>
         <a href="#contato" class="btn btn-ghost" data-i18n="heroBtnContact">Entrar em Contato</a>
-      </div>
-    </div>
-    <div class="hero-photo-wrap">
-      <img class="hero-photo" id="gaze-photo" src="assets/gaze-mc.png" alt="Foto de João Victor Tardin Ramiro" onerror="this.style.display='none'">
-      <div class="hero-photo-fade"></div>
-      <div class="hero-photo-fade-top"></div>
-      <div class="hero-photo-fade-bottom"></div>
-      <!-- 3x3 invisible gaze trigger grid -->
-      <div class="gaze-grid" id="gaze-grid" aria-hidden="true">
-        <div data-g="tl"></div><div data-g="tc"></div><div data-g="tr"></div>
-        <div data-g="ml"></div><div data-g="mc"></div><div data-g="mr"></div>
-        <div data-g="bl"></div><div data-g="bc"></div><div data-g="br"></div>
       </div>
     </div>
   </section>
