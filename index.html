@@ -126,7 +126,8 @@
 
   /* hero */
   .hero{
-    min-height:88vh;
+    height:calc(100vh - 68px);
+    min-height:500px;
     display:grid;
     grid-template-columns:46% 1fr;
     align-items:center;
@@ -145,10 +146,8 @@
   .hero h1 .accent{color:var(--accent);}
   .hero-photo-wrap{
     position:relative;
-    height:100%;
-    min-height:88vh;
-    overflow:hidden;
     align-self:stretch;
+    overflow:hidden;
     background:var(--bg);
   }
   .hero-photo{
@@ -205,10 +204,41 @@
     0%,100%{box-shadow:0 0 4px #22c55e; opacity:1;}
     50%{box-shadow:0 0 14px #22c55e; opacity:.75;}
   }
+  /* ── tablet ── */
   @media (max-width:900px){
-    .hero{grid-template-columns:1fr; padding:60px 6vw !important;}
-    .hero-content{padding:0;}
-    .hero-photo-wrap{display:none;}
+    .hero{
+      grid-template-columns:1fr;
+      height:auto; min-height:auto;
+      padding:0 !important;
+    }
+    .hero-photo-wrap{
+      height:55vw; min-height:260px; max-height:420px;
+      width:100%; align-self:auto;
+    }
+    .hero-photo{ object-position:center 10%; }
+    .hero-photo-fade{ display:none; }
+    .hero-photo-fade-top{ height:50px; }
+    .hero-photo-fade-bottom{ height:80px; }
+    .hero-content{ padding:36px 6vw 52px; }
+    .bg-watermark{ display:none; }
+  }
+  /* ── mobile ── */
+  @media (max-width:600px){
+    nav.top-nav{ display:none; }
+    .topnav-logo{ font-size:16px; }
+    .hero-photo-wrap{ height:68vw; max-height:320px; }
+    .hero h1{ font-size:clamp(26px,8vw,36px); }
+    .hero-sub{ font-size:15px; }
+    .hero-cta{ gap:10px; }
+    .btn{ padding:10px 18px; font-size:13px; }
+    section{ padding:48px 5vw; }
+    .sobre-grid{ grid-template-columns:1fr; gap:28px; }
+    .stat-grid{ grid-template-columns:1fr 1fr; }
+    .skill-grid{ grid-template-columns:1fr 1fr; }
+    .project-grid{ grid-template-columns:1fr; }
+    .service-grid{ grid-template-columns:1fr; }
+    footer{ flex-direction:column; align-items:center; gap:14px; text-align:center; }
+    .social-row{ justify-content:center; }
   }
 
   .typed-caret{
