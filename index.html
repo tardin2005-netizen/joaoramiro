@@ -38,6 +38,13 @@
   }
   a{color:inherit; text-decoration:none;}
   ::selection{background:var(--accent-dim); color:var(--accent);}
+
+  /* barra de rolagem escura, para nao destoar do fundo */
+  html{scrollbar-width:thin; scrollbar-color:var(--border) transparent;}
+  ::-webkit-scrollbar{width:10px; height:10px;}
+  ::-webkit-scrollbar-track{background:transparent;}
+  ::-webkit-scrollbar-thumb{background:var(--border); border-radius:999px; border:2px solid var(--bg);}
+  ::-webkit-scrollbar-thumb:hover{background:#2c3f6b;}
   :focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
 
   .bg-watermark{position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden;}
@@ -265,6 +272,13 @@
   .company-badge-meta{font-size:11.5px; color:var(--text-dim); font-family:var(--font-mono);}
   .sobre-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:60px; margin-top:36px;}
   h2{font-size:clamp(28px,3.2vw,40px); font-weight:800; margin-bottom:8px;}
+  /* o rotulo da secao lidera; o h2 abaixo dele fica menor */
+  section:not(.hero):not(#contato) .eyebrow{
+    font-size:clamp(22px,2.6vw,32px); letter-spacing:.08em; margin-bottom:12px;
+  }
+  section:not(.hero):not(#contato) h2{
+    font-size:clamp(15px,1.4vw,18px); font-weight:600; color:var(--text-dim); letter-spacing:0;
+  }
   .sobre-text p{color:var(--text-dim); font-size:15.5px; margin-top:16px; max-width:62ch;}
   .sobre-text b{color:var(--text);}
   .placeholder{color:var(--accent2);}
@@ -429,7 +443,7 @@
   <section id="projetos">
     <div class="eyebrow" data-i18n="projectsEyebrow">O que eu construí</div>
     <h2 data-i18n="projectsTitle">Projetos</h2>
-    <p class="section-intro" data-i18n="projectsIntro">Projetos que nasceram de problemas reais — meus e de quem está por perto — construídos com apoio de IA generativa do zero ao ar.</p>
+    <p class="section-intro" data-i18n="projectsIntro">Projetos que nasceram de problemas reais, meus e de quem está por perto, construídos com apoio de IA generativa do zero ao ar.</p>
 
     <div class="project-grid">
       <div class="project-card reveal">
@@ -470,7 +484,7 @@
   <section id="servicos">
     <div class="eyebrow" data-i18n="servicesEyebrow">O que eu faço</div>
     <h2 data-i18n="servicesTitle">Serviços</h2>
-    <p class="section-intro" data-i18n="servicesIntro">Frentes onde posso ajudar diretamente, unindo marketing, produto e IA aplicada aos negócios.</p>
+    <p class="section-intro" data-i18n="servicesIntro">O que eu consigo entregar hoje, do começo ao fim.</p>
 
     <div class="service-grid">
       <div class="service-card reveal">
@@ -479,8 +493,8 @@
           <img src="assets/tarflow-preview-2026.png" alt="Preview do Tarflow, exemplo de site construído com IA" data-i18n-alt="tarflowServiceImgAlt" class="service-image">
           <span class="service-image-zoom"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M9 11h4M11 9v4"/></svg></span>
         </div>
-        <p class="service-tagline" data-i18n="service1Tagline">Não penso apenas em páginas. Penso na experiência que acontece entre o primeiro clique e a conversão.</p>
-        <p data-i18n="service1Desc">Desenvolvimento de websites, landing pages e interfaces digitais com apoio de IA, unindo UX/UI, estratégia e tecnologia para criar experiências que comunicam, envolvem e geram ação.</p>
+        <p class="service-tagline" data-i18n="service1Tagline">Uma página não é só layout. É o caminho entre o primeiro clique e a decisão de agir.</p>
+        <p data-i18n="service1Desc">Construo sites e landing pages do zero, usando IA para acelerar as partes repetitivas. Cuido do layout, dos textos e do comportamento da página, pensando em quem vai usar e no que ela precisa fazer acontecer.</p>
         <ul class="service-list">
           <li data-i18n="service1Li1">UX/UI e experiência do usuário</li>
           <li data-i18n="service1Li2">Websites e landing pages orientados à conversão</li>
@@ -494,7 +508,7 @@
           <span class="service-image-zoom"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M9 11h4M11 9v4"/></svg></span>
         </div>
         <p class="service-tagline" data-i18n="service2Tagline">Peguei um negócio familiar e transformei seu catálogo de caldos em uma experiência digital pensada para vender.</p>
-        <p data-i18n="service2Desc">A ideia foi simplificar a escolha, apresentar os produtos de forma mais atrativa e reduzir o caminho entre conhecer o produto e fazer o pedido.</p>
+        <p data-i18n="service2Desc">Simplifiquei a escolha, deixei os produtos mais fáceis de comparar e encurtei o caminho entre ver o caldo e mandar o pedido no WhatsApp.</p>
         <ul class="service-list">
           <li data-i18n="service2Li1">Catálogo digital interativo</li>
           <li data-i18n="service2Li2">Conversão direta pelo WhatsApp</li>
@@ -504,7 +518,7 @@
       <div class="service-card reveal">
         <div class="service-icon icon-teal">🤖</div>
         <h3 data-i18n="service3Title">IA &amp; Soluções Sob Medida</h3>
-        <p data-i18n="service3Desc">Desenvolvimento de agentes inteligentes, automações avançadas e um amplo leque de soluções pra resolver desafios específicos de cada projeto.</p>
+        <p data-i18n="service3Desc">Monto agentes e automações para problemas específicos: tarefas repetitivas, triagem de informação, fluxos que hoje alguém faz na mão. Começo entendendo o problema antes de escolher a ferramenta.</p>
         <ul class="service-list">
           <li data-i18n="service3Li1">Agentes Personalizados &amp; IA Aplicada</li>
           <li data-i18n="service3Li2">Soluções Digitais sob Medida</li>
@@ -677,7 +691,7 @@
 
     projectsEyebrow: { en: "What I've built" },
     projectsTitle: { en: "Projects" },
-    projectsIntro: { en: "Projects born from real problems — mine and the people around me — built with the support of generative AI from zero to live." },
+    projectsIntro: { en: "Projects born from real problems, mine and the people around me, built with the support of generative AI from zero to live." },
     tarflowImgAlt: { pt: "Tela inicial do app Tarflow", en: "Tarflow app home screen" },
     tarflowTagline: { en: "An attempt to turn my own relationship with money into a product." },
     tarflowDesc: { en: "One of my first projects: more than a web app, it was a real attempt to organize my own finances and turn that learning into a product, built from scratch with Google AI Studio and generative AI. Discontinued as a product, it gave rise to the Tardin Invest visual identity." },
@@ -693,22 +707,22 @@
 
     servicesEyebrow: { en: "What I do" },
     servicesTitle: { en: "Services" },
-    servicesIntro: { en: "Areas where I can help directly, combining marketing, product and AI applied to business." },
+    servicesIntro: { en: "What I can deliver today, end to end." },
     tarflowServiceImgAlt: { pt: "Preview do Tarflow, exemplo de site construído com IA", en: "Tarflow preview, an example of a site built with AI" },
-    service1Tagline: { en: "I don't just think about pages. I think about the experience that happens between the first click and the conversion." },
-    service1Desc: { en: "Development of websites, landing pages and digital interfaces with AI support, combining UX/UI, strategy and technology to create experiences that communicate, engage and drive action." },
+    service1Tagline: { en: "A page isn't just layout. It's the path between the first click and the decision to act." },
+    service1Desc: { en: "I build websites and landing pages from scratch, using AI to speed up the repetitive parts. I handle the layout, the copy and how the page behaves, thinking about who will use it and what it needs to achieve." },
     service1Li1: { en: "UX/UI and user experience" },
     service1Li2: { en: "Conversion-oriented websites and landing pages" },
     service1Li3: { en: "AI applied to the creation process" },
     service2Title: { en: "Digital Experience &amp; Conversion" },
     caldosImgAlt: { pt: "Landing page do Tardin Caldos, projeto de conversão via WhatsApp", en: "Tardin Caldos landing page, a WhatsApp conversion project" },
     service2Tagline: { en: "I took a family business and turned its soup catalog into a digital experience built to sell." },
-    service2Desc: { en: "The idea was to simplify the choice, present the products more attractively and shorten the path between discovering the product and placing the order." },
+    service2Desc: { en: "I simplified the choice, made the products easier to compare and shortened the path between seeing a soup and sending the order on WhatsApp." },
     service2Li1: { en: "Interactive digital catalog" },
     service2Li2: { en: "Direct conversion via WhatsApp" },
     service2Li3: { en: "Interface designed to ease decision-making" },
     service3Title: { en: "AI &amp; Custom Solutions" },
-    service3Desc: { en: "Development of intelligent agents, advanced automations and a wide range of solutions to solve each project's specific challenges." },
+    service3Desc: { en: "I build agents and automations for specific problems: repetitive tasks, information triage, workflows someone still does by hand. I start by understanding the problem before picking the tool." },
     service3Li1: { en: "Custom Agents &amp; Applied AI" },
     service3Li2: { en: "Tailor-made Digital Solutions" },
 
